@@ -21,10 +21,13 @@ export default function Login() {
       })
       const result = await res.json();
       console.log(result);
+
       if (res.status === 200) {
         setLoggedIn(true);
-        setUser(result.user);
-        console.log(user);
+        setUser(JSON.stringify(result.user));
+        localStorage.setItem("user",JSON.stringify(result.user));
+        console.log(JSON.parse(localStorage.getItem('user')));  
+        setForm("userData");
         navigate("/");
       } else if (res.status === 404) {
         setLoggedIn(false);
