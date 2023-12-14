@@ -2,19 +2,19 @@ import { useForm} from "react-hook-form";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom"
 import { AppContext } from "../contextAPI/AppContext";
-import { backend_url } from "../contant";
+
 
 export default function Login() {
   const { register, handleSubmit } = useForm()
   const navigate = useNavigate();
 
-  const {setLoggedIn,setUser,user,setForm} = useContext(AppContext);
+  const {setLoggedIn,setUser,setForm} = useContext(AppContext);
 
   const submitHandler = async (loginData) => {
     
     console.log(loginData)
     try{
-      const res = await fetch(backend_url+"/login",{
+      const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/login`,{
         method : "post",
         headers : {"content-type" : "application/json"},
         body : JSON.stringify(loginData)
