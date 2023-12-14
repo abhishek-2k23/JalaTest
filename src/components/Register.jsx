@@ -2,7 +2,6 @@ import { useForm} from "react-hook-form";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom"
 import { AppContext } from "../contextAPI/AppContext";
-import { backend_url } from "../contant";
 import Login from "./Login";
 
 export default function Register() {
@@ -15,7 +14,7 @@ export default function Register() {
     
     console.log(loginData)
     try{
-      const res = await fetch(backend_url+"/register",{
+      const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/register`,{
         method : "post",
         headers : {"content-type" : "application/json"},
         body : JSON.stringify(loginData)
