@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom"
 import { AppContext } from "../contextAPI/AppContext";
 import Login from "./Login";
+import toast from 'react-hot-toast';
 
 export default function Register() {
   const { register, handleSubmit } = useForm()
@@ -11,26 +12,30 @@ export default function Register() {
   const {setLoggedIn,setUser,setForm} = useContext(AppContext);
 
   const submitHandler = async (loginData) => {
-    
+    let toastid;
     console.log(loginData)
     try{
+      toastid = toast.loading("wait");
       const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/register`,{
-        method : "post",
+        method : "POST",
         headers : {"content-type" : "application/json"},
         body : JSON.stringify(loginData)
       })
       const result = await res.json();
       console.log(result);
       if (res.status === 200) {
-        setLoggedIn(true);
+        toast.success("you are registered.",{id : toastid})
         setForm("login");
       } else if (res.status === 404) {
+        toast.error(result.message,{id : toastid})
         setLoggedIn(false);
       } else {
+        toast.error(result.message,{id : toastid})
         setLoggedIn(false);
       }
 
     }catch(err){
+      toast.error(err.message,{id : toastid})
       console.log(err);
     }
   }
@@ -54,7 +59,7 @@ export default function Register() {
     </form>
     <div className="flex gap-4 justify-center mt-2">
         <p className="underline italic font-light " onClick={() => navigate("/passwordUpdate")}>forgot password</p>
-        <p className="underline italic font-light " onClick={() => setForm("login")}>login</p>
+        <p className="underline italic font-light " onClick={() => {setForm("login"); console.log("login")}}>login</p>
       </div>
     </div>
   )
