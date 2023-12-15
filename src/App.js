@@ -3,12 +3,13 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import PasswordUpdate from "./components/PasswordUpdate";
 import { Outlet, createBrowserRouter } from "react-router-dom";
-import Nav from "./components/Nav";
+import ValidateOTP from "./components/ValidateOTP";
+import ChangePassword from "./components/ChangePassword";
+
 function App() {
 
   return (
     <div className="text-center">
-      <Nav/>
       <Outlet/>
     </div>
   );
@@ -33,6 +34,14 @@ export const approuter = createBrowserRouter([{
       {
         path : '/passwordUpdate',
         element : <PasswordUpdate/>
+      },
+      {
+        path : '/validateOTP',
+        element : <ValidateOTP/>
+      },
+      {
+        path : '/changePassword',
+        element : <ChangePassword/>
       },
     ]
   }])
