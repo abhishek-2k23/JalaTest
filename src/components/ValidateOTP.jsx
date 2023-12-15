@@ -17,7 +17,7 @@ const ValidateOTP = () => {
             console.log(data);
             toastid = toast.loading("validating....");
             const res = await fetch(
-              `${process.env.REACT_APP_BACKEND_URL}/otpValidate`,
+              `${process.env.REACT_APP_BACKEND_URL}otpValidate`,
               { method: "POST",
                 headers : {"content-type" : "application/json"},
                 body : JSON.stringify(data)

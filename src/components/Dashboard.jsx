@@ -17,7 +17,7 @@ const Dashboard = () => {
   async function fetchUsers() {
     try {
       const res = await fetch(
-        `${process.env.REACT_APP_BACKEND_URL}/getallusers`,
+        `${process.env.REACT_APP_BACKEND_URL}getallusers`,
         {
           method: "GET",
           headers: {
@@ -35,7 +35,7 @@ const Dashboard = () => {
   const deleteHandler = async (email) => {
     try {
       const res = await fetch(
-        `${process.env.REACT_APP_BACKEND_URL}/deleteuser`,
+        `${process.env.REACT_APP_BACKEND_URL}deleteuser`,
         {
           method: "delete",
           body: JSON.stringify(email),

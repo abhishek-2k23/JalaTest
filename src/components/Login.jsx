@@ -17,7 +17,7 @@ export default function Login() {
     console.log(loginData);
     try {
       toastid = toast.loading("login in process...")
-      const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/login`, {
+      const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}login`, {
         method: "post",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(loginData),

@@ -15,7 +15,7 @@ const ChangePassword = () => {
     let toastid;
     try{
       toastid = toast.loading("Updating...")
-      const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/resetPassword`,{method:"POST",headers :  {"content-type" : "application/json"},body : JSON.stringify(data)});
+      const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}resetPassword`,{method:"POST",headers :  {"content-type" : "application/json"},body : JSON.stringify(data)});
 
       const result = await res.json();
       

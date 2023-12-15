@@ -15,7 +15,7 @@ export default function Register() {
     console.log(loginData)
     try{
       toastid = toast.loading("wait");
-      const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/register`,{
+      const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}register`,{
         method : "POST",
         headers : {"content-type" : "application/json"},
         body : JSON.stringify(loginData)
