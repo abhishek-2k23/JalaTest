@@ -27,7 +27,7 @@ const Dashboard = () => {
       );
       const users = await res.json();
       
-      setUserDetails(users.users);
+      setUserDetails(users?.users);
     } catch (err) {
       console.log("Error : ", err);
     }
@@ -53,7 +53,7 @@ const Dashboard = () => {
   };
   return (
     <div className="w-full px-6 md:w-1/2">
-      <p className="text-xl font-bold mb-3">Hi, {user.Name}</p>
+      <p className="text-xl font-bold mb-3">Hi, {user?.Name}</p>
       <div
         className="flex justify-between items-center -mb-5"
       >
