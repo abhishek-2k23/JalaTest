@@ -2,14 +2,13 @@ import { useForm} from "react-hook-form";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom"
 import { AppContext } from "../contextAPI/AppContext";
-import Login from "./Login";
 import toast from 'react-hot-toast';
 
 export default function Register() {
   const { register, handleSubmit } = useForm()
   const navigate = useNavigate();
 
-  const {setLoggedIn,setUser,setForm} = useContext(AppContext);
+  const {setLoggedIn,setForm} = useContext(AppContext);
 
   const submitHandler = async (loginData) => {
     let toastid;
