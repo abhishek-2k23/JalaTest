@@ -10,12 +10,16 @@ const Dashboard = () => {
   const [userDetails, setUserDetails] = useState([]);
   const navigate = useNavigate();
   
+  //fetch all users on first render
   useState(() => {
     fetchUsers();
   }, []);
 
+  //user fetching function
   async function fetchUsers() {
     try {
+
+      //get all the users
       const res = await fetch(
         `${process.env.REACT_APP_BACKEND_URL}getallusers`,
         {
@@ -25,15 +29,23 @@ const Dashboard = () => {
           },
         }
       );
+
+      //convert response to the json
       const users = await res.json();
       
+
+      // set user details 
       setUserDetails(users?.users);
     } catch (err) {
       console.log("Error : ", err);
     }
   }
+
+  //To delete the users 
   const deleteHandler = async (email) => {
     try {
+
+      //user deletion request
       const res = await fetch(
         `${process.env.REACT_APP_BACKEND_URL}deleteuser`,
         {
@@ -41,9 +53,11 @@ const Dashboard = () => {
           body: JSON.stringify(email),
         }
       );
-
+      
+      //data converted to json
       const result = await res.json();
-      console.log(result);
+
+      //after deletion refresh the new user list
       if (result.status) {
         fetchUsers();
       }
@@ -53,10 +67,12 @@ const Dashboard = () => {
   };
   return (
     <div className="w-full px-6 md:w-1/2">
+      {/* user name on the his dashboard  */}
       <p className="text-xl font-bold mb-3">Hi, {user?.Name}</p>
       <div
         className="flex justify-between items-center -mb-5"
       >
+        {/* link to login tab  */}
         <div className="flex items-center gap-1" onClick={() => {setForm("login");toast("login page")}}>
           <span>
             <GrFormPreviousLink />
@@ -66,6 +82,8 @@ const Dashboard = () => {
         <div className="text-blue-950 font-bold text-lg tracking-wider">
           All Users 
         </div>
+
+        {/* link to go to register tab  */}
         <div className="p-2 border bg-blue-900 rounded-md text-white" onClick={() => {setForm("register"); console.log("clicked in create : ",form); navigate("/")}}>
           create user
         </div>

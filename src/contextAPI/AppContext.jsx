@@ -1,3 +1,4 @@
+//This file is for global storage of the users useState data
 import { useState } from "react";
 import { createContext } from "react";
 export const AppContext = createContext();

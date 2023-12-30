@@ -1,3 +1,4 @@
+//This component will take email from the user and submit it to validate the email and get the OTP to the email
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -15,6 +16,8 @@ const PasswordUpdate = () => {
     try {
       setEmail(data);
       toastid = toast.loading("Sending OTP");
+
+      //request to validate email and getOTP
       const res = await fetch(
         `${process.env.REACT_APP_BACKEND_URL}generateOTP`,
         {
@@ -24,12 +27,15 @@ const PasswordUpdate = () => {
         }
       );
       const result = await res.json();
-      console.log(result);
+      
+      //if get the otp successfully swith the user to validate otp component
       if (result.status) {
         toast.success(result.message, { id: toastid });
         console.log("navigated to validOTP");
         Navigate("/validateOTP");
       } else {
+
+        //if any error occur
         toast.error(result.message, { id: toastid });
       }
     } catch (err) {
@@ -43,6 +49,8 @@ const PasswordUpdate = () => {
       <h1 className="text-2xl font-bold tracking-wider">Forgot Password</h1>
 
       <div className="w-1/2 bg-white p-5">
+
+        {/* //form to get the email */}
         <form onSubmit={handleSubmit(submitHandler)}>
           <input
             type="email"
@@ -57,6 +65,7 @@ const PasswordUpdate = () => {
           />
         </form>
 
+        {/* links to go back to login page or home page  */}
         <p
           className="text-blue-500 underline"
           onClick={() => {

@@ -1,3 +1,4 @@
+//This component if for user registration
 import { useForm} from "react-hook-form";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom"
@@ -10,11 +11,14 @@ export default function Register() {
 
   const {setLoggedIn,setForm} = useContext(AppContext);
 
+  //to send the user data to backend and verify the data and register the user
   const submitHandler = async (loginData) => {
     let toastid;
     console.log(loginData)
     try{
       toastid = toast.loading("wait");
+
+      //send data to register
       const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}register`,{
         method : "POST",
         headers : {"content-type" : "application/json"},
@@ -22,10 +26,15 @@ export default function Register() {
       })
       const result = await res.json();
       console.log(result);
+
+      //if all data correct then user registered. Show the message toast and navigate user to login page
       if (res.status === 200) {
         toast.success("you are registered.",{id : toastid})
         setForm("login");
-      } else if (res.status === 404) {
+      } 
+
+      // if any error occurs 
+      else if (res.status === 404) {
         toast.error(result.message,{id : toastid})
         setLoggedIn(false);
       } else {
@@ -43,6 +52,7 @@ export default function Register() {
   return (
     <div className="w-full bg-white ">
       <h1 className="mb-5">Register</h1>
+      {/* registraiton form  */}
     <form onSubmit={handleSubmit(submitHandler)}>
     <div>
         <input {...register("Name")} type="text" placeholder="Name" className="w-full px-2  py-1 border border-gray-500 my-2"/>
@@ -56,6 +66,8 @@ export default function Register() {
       
       <input type="submit" value={"sign in"} className="w-full py-2 bg-sky-500 text-white"/>
     </form>
+
+    {/* links for forgot passoword and login page  */}
     <div className="flex gap-4 justify-center mt-2">
         <p className="underline italic font-light " onClick={() => navigate("/passwordUpdate")}>forgot password</p>
         <p className="underline italic font-light " onClick={() => {setForm("login"); console.log("login")}}>login</p>
